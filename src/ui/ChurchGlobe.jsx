@@ -190,13 +190,13 @@ export default function ChurchGlobe({ activeIndex, onActiveChange }) {
       }
 
       context.clearRect(0, 0, width, height);
-      const compact = width < 640;
+      const compact = width <= 640;
       const radius = Math.min(
-        width * (compact ? 0.56 : 0.355),
-        height * (compact ? 0.34 : 0.5),
+        width * (compact ? 0.44 : 0.355),
+        height * (compact ? 0.42 : 0.5),
       ) * rotation.zoom;
       const centerX = width * (compact ? 0.5 : 0.67);
-      const centerY = height * (compact ? 0.52 : 0.46);
+      const centerY = height * (compact ? 0.5 : 0.46);
 
       const glow = context.createRadialGradient(centerX, centerY, radius * 0.55, centerX, centerY, radius * 1.18);
       glow.addColorStop(0, "rgba(255,255,255,0.015)");
@@ -257,15 +257,17 @@ export default function ChurchGlobe({ activeIndex, onActiveChange }) {
           return b.z - a.z;
         });
       const accepted = [];
-      const maxLabels = compact ? 2 : 4;
+      const maxLabels = compact ? 1 : 4;
 
       for (const item of visible) {
         const label = labelRefs.current[item.index];
         if (!label) continue;
-        const labelWidth = item.index === activeRef.current ? 196 : 166;
+        const labelWidth = compact ? label.offsetWidth : item.index === activeRef.current ? 196 : 166;
+        const labelX = compact ? clamp(item.x, labelWidth / 2 + 12, width - labelWidth / 2 - 12) : item.x;
+        label.style.setProperty("--label-offset", `${labelX - item.x}px`);
         const box = {
-          left: item.x - labelWidth / 2,
-          right: item.x + labelWidth / 2,
+          left: labelX - labelWidth / 2,
+          right: labelX + labelWidth / 2,
           top: item.y - 72,
           bottom: item.y - 16,
         };

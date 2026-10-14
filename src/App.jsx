@@ -19,12 +19,27 @@ function App() {
       </header>
 
       <section className="map-hero" aria-label="Church map">
-        <ChurchGlobe activeIndex={activeChurch} onActiveChange={setActiveChurch} />
+        <ChurchGlobe
+          activeIndex={activeChurch}
+          onActiveChange={setActiveChurch}
+        />
 
         <div className="hero-copy">
-          <div className="eyebrow"><span /> Explore the map</div>
-          <h1>Find a church<br />worth calling <em>home.</em></h1>
-          <p>Seven churches. Five cities. One growing map.</p>
+          <div className="eyebrow">
+            <span /> Explore the map
+          </div>
+          <h1>
+            <em>Explore</em>{" "}
+            <br />
+            churches{" "}
+            <br />
+            worldwide
+          </h1>
+          <p>
+            didymus.ai is a beta project that listens to a church's sermons to
+            decipher their beliefs and map them so you can explore churches
+            around the world.
+          </p>
         </div>
 
         <section className="location-rail" aria-label="Churches on the map">
@@ -40,12 +55,18 @@ function App() {
                 onClick={() => setActiveChurch(index)}
                 type="button"
               >
-                <span className="location-number">{String(index + 1).padStart(2, "0")}</span>
+                <span className="location-number">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
                 <span className="location-copy">
                   <strong>{church.shortName}</strong>
-                  <span>{church.city} · {church.countryCode}</span>
+                  <span>
+                    {church.city} · {church.countryCode}
+                  </span>
                 </span>
-                <span className="location-arrow" aria-hidden="true">↗</span>
+                <span className="location-arrow" aria-hidden="true">
+                  ↗
+                </span>
               </button>
             ))}
           </div>
