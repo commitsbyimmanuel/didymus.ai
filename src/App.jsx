@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { CHURCHES } from "./data/churches";
 import ChurchGlobe from "./ui/ChurchGlobe";
 
@@ -72,6 +73,7 @@ function App() {
           </div>
         </section>
       </section>
+      <Analytics />
     </main>
   );
 }
